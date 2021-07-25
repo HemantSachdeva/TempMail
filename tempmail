@@ -111,7 +111,22 @@ generate_email_address() {
 
     # If the user provided a custom email address then use that email address
     if [ "$custom" != false ]; then
-        email_address=$custom
+
+        # Check if user added a valid domain
+        valid=0
+        dom=$(echo "$custom" | cut -d '@' -f2)
+        for d in $domains; do
+            [[ "$d" = "$dom" ]] && valid=1 && break
+        done
+
+        # Pick random domain if custom domain is not added or invalid
+        if [[ valid -eq 0 ]]; then
+            echo "No valid domain added. Picking one randomly from"
+            echo "$domains"
+            email_address="$custom@$domain"
+        else
+            email_address=$custom
+        fi
 
         # Check if the user is using username in the email address which appears
         # in the black list.
