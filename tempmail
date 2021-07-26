@@ -44,8 +44,7 @@ tempmail -h | -v
 tempmail -g [ADDRESS]
 tempmail [-t | -b BROWSER] -r | ID
 
-When called with no option and no argument, tempmail lists the messages in
-the inbox and their numeric IDs.  When called with one argument, tempmail
+When called with one argument, tempmail
 shows the email message with specified ID.
 
 -b, --browser BROWSER
@@ -303,6 +302,24 @@ print_error() {
     exit 1
 }
 
+ascii() {
+    # Color codes
+    CL_GRN="\033[1;32m"
+    CL_RST="\033[0m"
+
+    # Print a colorful ASCII at first
+    echo -e "${CL_GRN}" "  _____                     ___  ___      _ _  " "${CL_RST}"
+    echo -e "${CL_GRN}" " |_   _|                    |  \/  |     (_) | " "${CL_RST}"
+    echo -e "${CL_GRN}" "   | | ___ _ __ ___  _ __   | .  . | __ _ _| | " "${CL_RST}"
+    echo -e "${CL_GRN}" "   | |/ _ \ '_ ' _ \| '_ \  | |\/| |/ _' | | | " "${CL_RST}"
+    echo -e "${CL_GRN}" "   | |  __/ | | | | | |_) | | |  | | (_| | | | " "${CL_RST}"
+    echo -e "${CL_GRN}" "   \_/\___|_| |_| |_| .__/  \_|  |_/\__,_|_|_| " "${CL_RST}"
+    echo -e "${CL_GRN}" "                    | |                        " "${CL_RST}"
+    echo -e "${CL_GRN}" "                    |_|                        " "${CL_RST}"
+    echo
+    echo -e "Welcome to 𝒯𝑒𝓂𝓅 Mail, India's next number one temporary mail generator service.\nSay no to spam mails and use your official mail id without advertisements."
+}
+
 main() {
     # Iterate of the array of dependencies and check if the user has them installed.
     # We are checking if $browser is installed instead of checking for 'w3m'. By doing
@@ -331,8 +348,8 @@ main() {
     # period '.' which gives us the domain
     domain=${email_address#*@}
 
-    # If no arguments are provided just the emails
-    [ $# -eq 0 ] && list_emails && exit
+    # If no arguments are provided then print our ASCII and usage
+    [[ $# -eq 0 ]] && ascii && echo && usage
 
     while [ "$1" ]; do
         case "$1" in
