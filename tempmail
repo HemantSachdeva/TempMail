@@ -6,7 +6,7 @@
 # Dependencies: jq, curl, w3m
 #
 
-version=1
+version=1.1
 
 # By default 'tempmail' uses 'w3m' as it's web browser to render
 # the HTML of the email
