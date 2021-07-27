@@ -33,7 +33,7 @@ $ mv tempmail ~/bin/ || sudo mv tempmail /bin/
 ```console
 $ tempmail --help
 tempmail
-tempmail -h | -v
+tempmail -h | -v | -l
 tempmail -g [ADDRESS]
 tempmail [-t | -b BROWSER] -r | ID
 
@@ -43,6 +43,8 @@ shows the email message with specified ID.
 -b, --browser BROWSER
         Specify BROWSER (default: w3m) that is used to render the HTML of
         the email
+-l, --list
+        List all the received emails
 -g, --generate [ADDRESS]
         Generate a new email address, either the specified ADDRESS, or
         randomly create one

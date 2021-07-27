@@ -40,7 +40,7 @@ usage() {
     # better than using 'echo' for each line or using '\n' to create a new line.
     cat <<EOF
 tempmail
-tempmail -h | -v
+tempmail -h | -v | -l
 tempmail -g [ADDRESS]
 tempmail [-t | -b BROWSER] -r | ID
 
@@ -50,6 +50,8 @@ shows the email message with specified ID.
 -b, --browser BROWSER
         Specify BROWSER (default: w3m) that is used to render the HTML of
         the email
+-l, --list
+        List all the received emails
 -g, --generate [ADDRESS]
         Generate a new email address, either the specified ADDRESS, or
         randomly create one
@@ -354,6 +356,7 @@ main() {
     while [ "$1" ]; do
         case "$1" in
         --browser | -b) browser="$2" ;;
+        --list | -l) list_emails && exit ;;
         --generate | -g) generate_email_address true "$2" && exit ;;
         --help | -h) usage && exit ;;
         --recent | -r) view_recent_email && exit ;;
