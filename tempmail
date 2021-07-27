@@ -16,12 +16,24 @@ browser="w3m"
 # to raw text and send that to stdout
 raw_text=false
 
-# Everything related to 'tempmail' will be stored in ~/tempmail
+# Everything related to 'tempmail' will be stored in ~/tempmail by default
 # You can change it to /tmp/tempmail so that the old emails
 # and email addresses get cleared after restarting the computer
+# or use -d flag to set a custom dir path
 
-mkdir -p "$HOME/tempmail"
+dot_dir="$HOME/.tempmail/"
+mkdir -p "$dot_dir"
 tempmail_dir="$HOME/tempmail"
+
+# Takes directory from user and save it to dot dir
+directory() {
+    echo "$HOME/$2" >"$dot_dir/custom_tempmail_dir"
+    mkdir -p "$HOME/$2"
+}
+
+# Gets the directory path from dot dir so that it will not get
+# set to global tempmail_dir path whenever user runs the script
+[[ -f "$dot_dir/custom_tempmail_dir" ]] && tempmail_dir=$(cat "$dot_dir/custom_tempmail_dir")
 
 # tempmail_email_address is where we store the temporary email address
 # that gets generated. This prevents the user from providing
@@ -42,7 +54,7 @@ usage() {
     # better than using 'echo' for each line or using '\n' to create a new line.
     cat <<EOF
 tempmail
-tempmail -h | -v | -l
+tempmail -h | -v | -l | -d
 tempmail -g [ADDRESS]
 tempmail [-t | -b BROWSER] -r | ID
 
@@ -54,6 +66,8 @@ shows the email message with specified ID.
         the email
 -l, --list
         List all the received emails
+-d, --directory
+        Set a custom directory to store everything related to 'tempmail'
 -g, --generate [ADDRESS]
         Generate a new email address, either the specified ADDRESS, or
         randomly create one
@@ -359,6 +373,7 @@ main() {
         case "$1" in
         --browser | -b) browser="$2" ;;
         --list | -l) list_emails && exit ;;
+        --directory | -d) directory "$@" && exit ;;
         --generate | -g) generate_email_address true "$2" && exit ;;
         --help | -h) usage && exit ;;
         --recent | -r) view_recent_email && exit ;;

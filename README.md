@@ -33,7 +33,7 @@ $ mv tempmail ~/bin/ || sudo mv tempmail /bin/
 ```console
 $ tempmail --help
 tempmail
-tempmail -h | -v | -l
+tempmail -h | -v | -l | -d
 tempmail -g [ADDRESS]
 tempmail [-t | -b BROWSER] -r | ID
 
@@ -45,6 +45,8 @@ shows the email message with specified ID.
         the email
 -l, --list
         List all the received emails
+-d, --directory
+        Set a custom directory to store everything related to 'tempmail'
 -g, --generate [ADDRESS]
         Generate a new email address, either the specified ADDRESS, or
         randomly create one
