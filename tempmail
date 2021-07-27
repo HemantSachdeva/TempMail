@@ -223,7 +223,7 @@ view_email() {
     # Luckly 1secmail's API is not complicated and returns 'Message not found' as plain text
     # if our email address as not received any emails.
     # If we received the error message from the API just quit because there is nothing to do
-    [ "$data" = "Message not found" ] && print_error "Message not found"
+    [ "$data" = "Message not found" ] && print_error "No recent email found"
 
     # We pass the $data to 'jq' which extracts the values
     from=$(echo "$data" | jq -r ".from")
