@@ -40,7 +40,7 @@ usage() {
     # better than using 'echo' for each line or using '\n' to create a new line.
     cat <<EOF
 tempmail
-tempmail -h | --version
+tempmail -h | -v
 tempmail -g [ADDRESS]
 tempmail [-t | -b BROWSER] -r | ID
 
@@ -61,7 +61,7 @@ shows the email message with specified ID.
 -t, --text
         View the email as raw text, where all the HTML tags are removed.
         Without this option, HTML is used.
---version
+-v, --version
         Show version
 EOF
 }
@@ -326,7 +326,7 @@ main() {
         --help | -h) usage && exit ;;
         --recent | -r) view_recent_email && exit ;;
         --text | -t) raw_text=true ;;
-        --version) echo "$version" && exit ;;
+        --version | -v) echo "$version" && exit ;;
         *[0-9]*)
             # If the user provides number as an argument,
             # assume its the ID of an email and try getting
