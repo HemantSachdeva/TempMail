@@ -16,10 +16,12 @@ browser="w3m"
 # to raw text and send that to stdout
 raw_text=false
 
-# Everything related to 'tempmail' will be stored in /tmp/tempmail
-# so that the old emails and email addresses get cleared after
-# restarting the computer
-tempmail_dir="/tmp/tempmail"
+# Everything related to 'tempmail' will be stored in ~/tempmail
+# You can change it to /tmp/tempmail so that the old emails
+# and email addresses get cleared after restarting the computer
+
+mkdir -p "$HOME/tempmail"
+tempmail_dir="$HOME/tempmail"
 
 # tempmail_email_address is where we store the temporary email address
 # that gets generated. This prevents the user from providing
@@ -70,7 +72,7 @@ EOF
 generate_email_address() {
     # There are 2 ways which this function is called in this script.
     #  [1] The user wants to generate a new email and runs 'tempmail --generate'
-    #  [2] The user runs 'tempmail' to check the inbox , but /tmp/tempmail/email_address
+    #  [2] The user runs 'tempmail' to check the inbox , but $tempmail_dir/email_address
     #      is empty or nonexistant. Therefore a new email gets automatically
     #      generated before showing the inbox. But of course the inbox will
     #      be empty as the newly generated email address has not been
@@ -91,7 +93,7 @@ generate_email_address() {
     # Generate a random email address.
     # This function is called whenever the user wants to generate a new email
     # address by running 'tempmail --generate' or when the user runs 'tempmail'
-    # but /tmp/tempmail/email_address is empty or nonexistent.
+    # but $tempmail_dir/email_address is empty or nonexistent.
     #
     # We create a random username by taking the first 10 lines from /dev/random
     # and delete all the characters which are *not* lower case letters from A to Z.
