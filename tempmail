@@ -29,6 +29,8 @@ tempmail_dir="$HOME/tempmail"
 directory() {
     echo "$HOME/$2" >"$dot_dir/custom_tempmail_dir"
     mkdir -p "$HOME/$2"
+    echo -e "From now all data related to tempmail will be storing in $HOME/$2"
+    echo "We consider your provided directory path after $HOME xD"
 }
 
 # Gets the directory path from dot dir so that it will not get
@@ -138,8 +140,7 @@ generate_email_address() {
 
         # Pick random domain if custom domain is not added or invalid
         if [[ valid -eq 0 ]]; then
-            echo "No valid domain added. Picking one randomly from"
-            echo "$domains"
+            echo -e "No valid domain added. Picking one randomly from\n[ $domains ]\n"
             email_address="$custom@$domain"
         else
             email_address=$custom
@@ -217,9 +218,11 @@ list_emails() {
         # a point of reference to create the division. By default 'column' uses a blank space
         # but that would not work in our case as the email subject could have multiple white spaces
         # and 'column' would split the words that are seperated by white space, in different columns.
-        inbox="$inbox$id ||$from ||$subject\n"
+        inbox="ID: $inbox$id ||$from ||$subject\n"
         index=$((index + 1))
     done
+
+    echo -e "\nUse 'tempmail ID' to view email in detail."
 
     # Show the emails cleanly
     echo -e "$inbox" | column -t -s "||"
@@ -290,6 +293,8 @@ EOF
             index=$((index + 1))
         done
     fi
+
+    [[ $browser = "w3m" ]] && html_mail="$html_mail <br>[ Press q to exit w3m ]"
 
     # Save the $html_mail into $tempmail_html_email
     echo "$html_mail" >"$tempmail_html_email"
