@@ -211,6 +211,7 @@ list_emails() {
         id=$(echo "$mail_data" | jq -r ".id")
         from=$(echo "$mail_data" | jq -r ".from")
         subject=$(echo "$mail_data" | jq -r ".subject")
+        date=$(echo "$mail_data" | jq -r ".date")
 
         # The '||' are used as a divideder for 'column'. 'column' will use this divider as
         # a point of reference to create the division. By default 'column' uses a blank space
@@ -246,6 +247,7 @@ view_email() {
     # We pass the $data to 'jq' which extracts the values
     from=$(echo "$data" | jq -r ".from")
     subject=$(echo "$data" | jq -r ".subject")
+    date=$(echo "$data" | jq -r ".date")
     html_body=$(echo "$data" | jq -r ".htmlBody")
     attachments=$(echo "$data" | jq -r ".attachments | length")
 
@@ -260,7 +262,8 @@ view_email() {
         cat <<EOF
 <pre><b>To: </b>$email_address
 <b>From: </b>$from
-<b>Subject: </b>$subject</pre>
+<b>Subject: </b>$subject
+<b>Date: </b>$date</pre>
 $html_body
 
 EOF
