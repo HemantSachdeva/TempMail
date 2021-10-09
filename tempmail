@@ -218,7 +218,7 @@ list_emails() {
         # a point of reference to create the division. By default 'column' uses a blank space
         # but that would not work in our case as the email subject could have multiple white spaces
         # and 'column' would split the words that are seperated by white space, in different columns.
-        inbox="ID: $inbox$id ||$from ||$subject\n"
+        inbox="$inbox ID: $id ||$from ||$subject\n"
         index=$((index + 1))
     done
 
