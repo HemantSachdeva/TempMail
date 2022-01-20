@@ -315,7 +315,7 @@ view_recent_email() {
     # normally see on the terminal when running 'tempmail'.
     # We then grab the ID of the most recent
     # email, which the first line.
-    mail_id=$(list_emails | head -3 | tail -1 | cut -d' ' -f 1)
+    mail_id=$(list_emails | head -4 | tail -1 | cut -d' ' -f 3)
     view_email "$mail_id"
 }
 
